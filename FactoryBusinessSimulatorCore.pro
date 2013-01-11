@@ -15,4 +15,9 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    fbploan.cpp
+
+HEADERS += \
+    FBProcess.h \
+    fbploan.h
