@@ -14,19 +14,17 @@ FBPInit::~FBPInit()
 
 int FBPInit::run()
 {
-    PlayerManager pm = PlayerManager.getManager();
-    Config config = Config.getConfig;
-    config.getMarket();
+    PlayerManager pm = PlayerManager::getManager();
+    Config config = Config::getConfig();
     QStringList playerList = config.getPlayers();
-    foreach(QString player, playerList)
+    foreach(QString playername, playerList)
     {
         Player player;
-        player.name = player;
+        player.name = playername;
         player.loan = 0;
         player.cash = config.get("Initial cash").toInt();
 
-
-        PlayerManager.addPlayer();
+        pm.addPlayer(player);
     }
 }
 

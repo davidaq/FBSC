@@ -17,7 +17,8 @@ SOURCES += main.cpp \
     fbploan.cpp \
     config.cpp \
     playermanager.cpp \
-    fbpinit.cpp
+    fbpinit.cpp \
+    fbpproduce.cpp
 
 
 HEADERS += \
@@ -26,7 +27,8 @@ HEADERS += \
     config.h \
     playermanager.h \
     player.h \
-    fbpinit.h
+    fbpinit.h \
+    fbpproduce.h
 
 
 OTHER_FILES +=
