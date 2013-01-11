@@ -2,8 +2,8 @@
 #define PLAYERMANAGER_H
 
 #include <QHash>
+#include <player.h>
 
-class Player{public: QString name;};
 class PlayerManager
 {
 public:
