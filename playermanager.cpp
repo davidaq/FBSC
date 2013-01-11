@@ -2,6 +2,8 @@
 #include <QFile>
 #include <QDataStream>
 
+QHash<QString, QString> Player::globalRecord;
+
 PlayerManager PlayerManager::manager;
 
 PlayerManager::PlayerManager()
