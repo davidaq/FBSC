@@ -7,9 +7,13 @@
 class Player
 {
 public:
-    Player();
     QString name;
+    int cash;
+    int loan;
+    QHash<int, int> marketAgents;
+    QHash<QString, QString> record;
 
+    /*
     /// Key matrics
     int cashBeforeDecision;
     int netCashflow;
@@ -104,6 +108,7 @@ public:
     QHash<int, int> saleAgentsRemoved;
     QHash<int, int> totalSalesAgents;
     QHash<int, int> saleAgentsCost;
+    */
 };
 
 #endif // PLAYER_H
