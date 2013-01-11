@@ -9,8 +9,7 @@ int run(QString procName) {
 #define REGISTER(NAME, OBJ) processes.append(qMakePair(QString(NAME), (FBProcess*) (new OBJ)))
 
     // Register processes here
-    REGISTER("test", FBPLoan);
-    REGISTER("test2", FBPLoan);
+    REGISTER("loan", FBPLoan);
     // End of register block
 
     FBProcess* proc = 0;
