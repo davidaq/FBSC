@@ -2,9 +2,13 @@
 #include <QMap>
 #include "fbploan.h"
 #include "FBProcess.h"
+#include "config.h"
+#include "playermanager.h"
 
-int run(QString procName) {
-    typedef QPair<QString, FBProcess*> NamedProcess;
+typedef QPair<QString, FBProcess*> NamedProcess;
+
+int main(int argc, char *argv[])
+{
     QList<NamedProcess> processes;
 #define REGISTER(NAME, OBJ) processes.append(qMakePair(QString(NAME), (FBProcess*) (new OBJ)))
 
@@ -12,6 +16,16 @@ int run(QString procName) {
     REGISTER("loan", FBPLoan);
     // End of register block
 
+    Config::getConfig().read("conf.d");
+    PlayerManager::getManager().read("conf.d");
+
+    int run(QString procName, const QList<NamedProcess> & processes);
+    for(int i = 1; i < argc; i++) {
+        run(argv[i], processes);
+    }
+}
+
+int run(QString procName, const QList<NamedProcess> & processes) {
     FBProcess* proc = 0;
     foreach(NamedProcess np, processes) {
         if(np.first == procName) {
@@ -26,13 +40,4 @@ int run(QString procName) {
     } else {
         return proc->run();
     }
-}
-
-int main(int argc, char *argv[])
-{
-    if(argc < 2) {
-        qDebug()<<"Please specify a process to run";
-        return 1;
-    }
-    run(argv[1]);
 }

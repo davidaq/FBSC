@@ -13,7 +13,7 @@ Config::Config()
 
 }
 
-const Config& Config::getConfig()
+Config &Config::getConfig()
 {
     return config;
 }
@@ -25,6 +25,7 @@ void Config::read(QString filename)
     QDataStream in(&file);
     in >> hash;
     file.close();
+    markets.clear();
 }
 
 void Config::write(QString filename)
@@ -46,7 +47,6 @@ QString Config::get(QString key)
     return hash[key];
 }
 
-
 void Config::test()
 {
     Config conf = Config::getConfig();
@@ -57,4 +57,11 @@ void Config::test()
     conf.read("a.conf");
     qDebug() << conf.get("a");
     qDebug() << conf.get("b");
+}
+
+QString Config::getMarket(int index) {
+    if(markets.isEmpty()) {
+        markets = get("markets").split(";;");
+    }
+    return markets[index];
 }

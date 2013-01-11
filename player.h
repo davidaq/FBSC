@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include <QString>
+#include <QHash>
 
 class Player
 {

@@ -16,13 +16,17 @@ CONFIG   -= app_bundle
 SOURCES += main.cpp \
     fbploan.cpp \
     config.cpp \
+    playermanager.cpp \
     player.cpp
+
 
 HEADERS += \
     FBProcess.h \
     fbploan.h \
     config.h \
+    playermanager.h \
     player.h
+
 
 OTHER_FILES +=
 
