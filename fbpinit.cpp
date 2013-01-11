@@ -3,15 +3,6 @@
 #include "player.h"
 #include "playermanager.h"
 
-FBPInit::FBPInit()
-{
-}
-
-FBPInit::~FBPInit()
-{
-
-}
-
 int FBPInit::run()
 {
     PlayerManager pm = PlayerManager::getManager();
@@ -26,5 +17,5 @@ int FBPInit::run()
 
         pm.addPlayer(player);
     }
+    return 0;
 }
-

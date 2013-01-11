@@ -6,8 +6,6 @@
 class FBPInit : public FBProcess
 {
 public:
-    FBPInit();
-    virtual ~FBPInit();
     virtual int run();
 };
 
