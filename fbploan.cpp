@@ -1,14 +1,15 @@
 #include "fbploan.h"
+#include "config.h"
+#include "playermanager.h"
 
 FBPLoan::FBPLoan()
 {
 }
 
-FBPLoan::~FBPLoan()
-{
-}
-
 int FBPLoan::run() {
-    qDebug()<<"hi";
+    foreach(QString name, Config::getConfig().getPlayers()) {
+
+    }
+
     return 0;
 }

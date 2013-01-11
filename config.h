@@ -15,7 +15,7 @@ public:
     void set(QString key, QString value);
     QString get(QString key);
     QString getMarket(int index);
-    QStringList players();
+    QStringList getPlayers();
 private:
     QStringList markets;
     explicit Config();

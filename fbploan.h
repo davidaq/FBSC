@@ -7,7 +7,6 @@ class FBPLoan : public FBProcess
 {
 public:
     FBPLoan();
-    virtual ~FBPLoan();
     virtual int run();
 };
 

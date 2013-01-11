@@ -21,8 +21,11 @@ int main(int argc, char *argv[])
 
     int run(QString procName, const QList<NamedProcess> & processes);
     for(int i = 1; i < argc; i++) {
-        run(argv[i], processes);
+        int r = run(argv[i], processes);
+        if(r != 0)
+            return r;
     }
+    return 0;
 }
 
 int run(QString procName, const QList<NamedProcess> & processes) {
