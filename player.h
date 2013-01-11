@@ -12,7 +12,7 @@ public:
     int loan;
     QHash<int, int> marketAgents;
     QHash<QString, QString> record;
-
+    static QHash<QString, QString> globalRecord;
     /*
     /// Key matrics
     int cashBeforeDecision;
