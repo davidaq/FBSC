@@ -20,7 +20,7 @@ void PlayerManager::write(const QString &filename)
         // write static
         // write players
         foreach(Player player, players.values()) {
-            // stream<<
+            stream<<player.cash;
         }
         file.close();
     }

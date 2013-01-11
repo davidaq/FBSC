@@ -16,8 +16,7 @@ CONFIG   -= app_bundle
 SOURCES += main.cpp \
     fbploan.cpp \
     config.cpp \
-    playermanager.cpp \
-    player.cpp
+    playermanager.cpp
 
 
 HEADERS += \
