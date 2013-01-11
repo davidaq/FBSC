@@ -10,6 +10,7 @@ public:
     QString name;
     int cash;
     int loan;
+    int homeMarket;
     QHash<int, int> marketAgents;
     QHash<QString, QString> record;
     static QHash<QString, QString> globalRecord;
