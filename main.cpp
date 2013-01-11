@@ -14,6 +14,7 @@ int main(int argc, char *argv[])
 
     // Register processes here
     REGISTER("loan", FBPLoan);
+
     // End of register block
 
     Config::getConfig().read("conf.d");
