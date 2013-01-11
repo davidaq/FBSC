@@ -1,7 +1,7 @@
-#include <QtCore/QCoreApplication>
+#include "config.h"
 
 int main(int argc, char *argv[])
 {
-    //
-    return a.exec();
+
+    return 0;
 }

@@ -12,7 +12,11 @@ TARGET = FactoryBusinessSimulatorCore
 CONFIG   += console
 CONFIG   -= app_bundle
 
-TEMPLATE = app
 
 
-SOURCES += main.cpp
+
+SOURCES += main.cpp \
+    config.cpp
+
+HEADERS += \
+    config.h
