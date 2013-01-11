@@ -13,10 +13,14 @@ CONFIG   += console
 CONFIG   -= app_bundle
 
 
-
-
 SOURCES += main.cpp \
+    fbploan.cpp \
     config.cpp
 
 HEADERS += \
+    FBProcess.h \
+    fbploan.h \
     config.h
+
+OTHER_FILES +=
+
