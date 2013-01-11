@@ -17,10 +17,8 @@ void PlayerManager::write(const QString &filename)
     QFile file(filename);
     if(file.open(QFile::WriteOnly)) {
         QDataStream stream(&file);
-        // write static
-        // write players
         foreach(Player player, players.values()) {
-            stream<<player.cash;
+            stream<<player.name<<player.cash<<player.loan<<player.marketAgents<<player.record;
         }
         file.close();
     }
@@ -32,11 +30,9 @@ void PlayerManager::read(const QString &filename)
     players.clear();
     if(file.open(QFile::ReadOnly)) {
         QDataStream stream(&file);
-        // read static
-        // read players
         while(!stream.atEnd()) {
             Player player;
-            // stream>>
+            stream>>player.name>>player.cash>>player.loan>>player.marketAgents>>player.record;
             addPlayer(player);
         }
         file.close();

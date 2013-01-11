@@ -66,6 +66,6 @@ QString Config::getMarket(int index) {
     return markets[index];
 }
 
-QStringList Config::players() {
+QStringList Config::getPlayers() {
     return get("players").split(";;");
 }
