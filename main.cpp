@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     QList<NamedProcess> processes;
 #define REGISTER(NAME, OBJ) processes.append(qMakePair(QString(NAME), (FBProcess*) (new OBJ)))
 
+
     // Register processes here
     REGISTER("loan", FBPLoan);
 
