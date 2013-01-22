@@ -104,11 +104,11 @@ public:
     int price;
 
     /// Sale Agent Costs
-    QHash<int, int> saleAgentBeforeDecision;
     QHash<int, int> saleAgentsAdded;
     QHash<int, int> saleAgentsRemoved;
-    QHash<int, int> totalSalesAgents;
     QHash<int, int> saleAgentsCost;
+    float salesPower;
+    int salesBudget;
     */
 };
 

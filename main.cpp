@@ -14,6 +14,11 @@ int main(int argc, char *argv[])
 
 
     // Register processes here
+    REGISTER("init", FBPLoan);
+    REGISTER("loan", FBPLoan);
+    REGISTER("loan", FBPLoan);
+    REGISTER("loan", FBPLoan);
+    REGISTER("loan", FBPLoan);
     REGISTER("loan", FBPLoan);
 
     // End of register block

@@ -21,7 +21,7 @@ void PlayerManager::write(const QString &filename)
         QDataStream stream(&file);
         stream<<Player::globalRecord;
         foreach(Player player, players.values()) {
-            stream<<player.name<<player.cash<<player.loan<<player.marketAgents<<player.record;
+            stream<<player.name<<player.homeMarket<<player.cash<<player.loan<<player.marketAgents<<player.record;
         }
         file.close();
     }
@@ -36,7 +36,7 @@ void PlayerManager::read(const QString &filename)
         stream>>Player::globalRecord;
         while(!stream.atEnd()) {
             Player player;
-            stream>>player.name>>player.cash>>player.loan>>player.marketAgents>>player.record;
+            stream>>player.name>>player.homeMarket>>player.cash>>player.loan>>player.marketAgents>>player.record;
             addPlayer(player);
         }
         file.close();

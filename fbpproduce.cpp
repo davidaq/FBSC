@@ -15,22 +15,24 @@ int FBPProduce::run()
     int hours = config.get("Month in a quarter").toInt()
             * config.get("Days in a month").toInt()
             * config.get("Working hours in a month").toInt();
+    int hoursInComp = config.get("Hours in a component").toInt();
+    int hoursInProd = config.get("Hours in a product").toInt();
     foreach(QString name, config.getPlayers()) {
-        Player player = manager.getPlayer(name);
+        Player& player = manager.getPlayer(name);
         int workers = player.record["workersHired"].toInt();
         int engineers = player.record["engineersHired"].toInt();
         int wp = workers / workersPerTeam;
-        int ep= engineers / engineersPerTeam;
+        int ep = engineers / engineersPerTeam;
         player.record["workersWorking"] = wp * workersPerTeam;
         player.record["workersIdle"] = workers - wp * workersPerTeam;
         player.record["engineersWorking"] = ep * engineersPerTeam;
         player.record["engineersIdle"] = workers - ep * engineersPerTeam;
-        int components = wp * hours;
+        int components = wp * (hours / hoursInComp);
         player.record["componentsProduced"] = components;
         int componentCost = components * comMatCost;
         player.record["componentsMaterialCost"] = componentCost;
         components += player.record["componentsStored"].toInt();
-        int prdComCap = ep * hours;
+        int prdComCap = ep * (hours / hoursInProd);
         int prdMatCap = components / comPerPrd;
         int order = player.record["productsOrdered"].toInt();
         int products = (prdComCap > prdMatCap)?prdMatCap:prdComCap;
@@ -40,7 +42,11 @@ int FBPProduce::run()
         player.record["componentsStored"] = components;
         player.record["componentsTotalCost"] = componentCost + components * comStrCost;
         player.record["productsProduced"] = products;
+        player.record["productsStored"] = products + player.record["productsStored"].toInt();
         player.record["productsMaterialCost"] = products * prdMatCost;
+        int qc = player.record["qualityCost"].toInt();
+        player.cash -= qc + componentCost + components * comStrCost + products * prdMatCost;
+        player.record["qualityCostPerProduct"] = qc / order;
     }
     return 0;
 }
