@@ -1,6 +1,10 @@
 #include <QtCore>
 #include <QMap>
 #include "fbploan.h"
+#include "fbpinit.h"
+#include "fbpproduce.h"
+#include "fbpsales.h"
+#include "fbphire.h"
 #include "FBProcess.h"
 #include "config.h"
 #include "playermanager.h"
@@ -16,10 +20,9 @@ int main(int argc, char *argv[])
     // Register processes here
     REGISTER("init", FBPLoan);
     REGISTER("loan", FBPLoan);
-    REGISTER("loan", FBPLoan);
-    REGISTER("loan", FBPLoan);
-    REGISTER("loan", FBPLoan);
-    REGISTER("loan", FBPLoan);
+    REGISTER("hire", FBPHire);
+    REGISTER("produce", FBPProduce);
+    REGISTER("sales", FBPSales);
 
     // End of register block
 
