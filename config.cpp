@@ -55,8 +55,6 @@ void Config::test()
     conf.set("b", "ssssss");
     conf.write("a.conf");
     conf.read("a.conf");
-    qDebug() << conf.get("a");
-    qDebug() << conf.get("b");
 }
 
 QString Config::getMarket(int index) {
@@ -72,6 +70,7 @@ QStringList Config::getPlayers() {
 
 void Config::genDefault()
 {
+    hash["players"] = "p1;;p2";
     hash["Month in a quarter"] = QString::number(3);
     hash["Days in a month"] = QString::number(30);
     hash["Working hours in a month"] = QString::number(168);

@@ -32,9 +32,10 @@ HEADERS += \
     fbpinit.h \
     fbpproduce.h \
     fbpsales.h \
-    fbphire.h
+    fbphire.h \
+    test.h
 
 
 OTHER_FILES += \
-    conf.d
+    dec.ref
 

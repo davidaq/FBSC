@@ -109,6 +109,10 @@ public:
     QHash<int, int> saleAgentsCost;
     float salesPower;
     int salesBudget;
+
+    QList<int> marketsOrderedReport;
+    bool hireConsultant;
+    int moneyPaidForLoan;
     */
 };
 

@@ -8,6 +8,19 @@
 #include "FBProcess.h"
 #include "config.h"
 #include "playermanager.h"
+#include "test.h"
+
+#define TEST
+#ifdef TEST
+
+int main()
+{
+    genDefaultConfig();
+    genDec();
+    return 0;
+}
+
+#else
 
 typedef QPair<QString, FBProcess*> NamedProcess;
 
@@ -53,3 +66,5 @@ int run(QString procName, const QList<NamedProcess> & processes) {
         return proc->run();
     }
 }
+
+#endif
