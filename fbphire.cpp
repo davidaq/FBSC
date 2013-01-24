@@ -4,8 +4,8 @@
 
 int FBPHire::run()
 {
-    PlayerManager pm = PlayerManager::getManager();
-    Config config = Config::getConfig();
+    PlayerManager& pm = PlayerManager::getManager();
+    Config& config = Config::getConfig();
     QStringList playerList = config.getPlayers();
 
     int workersAverageSalary = 0;

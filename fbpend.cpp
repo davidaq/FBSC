@@ -5,8 +5,8 @@
 
 int FBPEnd::run()
 {
-    PlayerManager manager = PlayerManager::getManager();
-    Config config = Config::getConfig();
+    PlayerManager& manager = PlayerManager::getManager();
+    Config& config = Config::getConfig();
     int prdStrCost = config.get("Product storage cost per quarter").toInt();
     float interestRate = config.get("Interest per quarter").toFloat() + 1;
     foreach(QString name, config.getPlayers()) {

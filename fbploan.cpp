@@ -3,7 +3,7 @@
 #include "playermanager.h"
 
 int FBPLoan::run() {
-    PlayerManager players = PlayerManager::getManager();
+    PlayerManager& players = PlayerManager::getManager();
     foreach(QString name, Config::getConfig().getPlayers()) {
         Player& player = players.getPlayer(name);
         int loan = player.record["loan"].toInt();

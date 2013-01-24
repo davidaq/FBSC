@@ -5,8 +5,8 @@
 
 int FBPBonus::run()
 {
-    PlayerManager manager = PlayerManager::getManager();
-    Config config = Config::getConfig();
+    PlayerManager& manager = PlayerManager::getManager();
+    Config& config = Config::getConfig();
     foreach(QString name, config.getPlayers()) {
         Player& player = manager.getPlayer(name);
         if(player.record.contains("bonus")) {

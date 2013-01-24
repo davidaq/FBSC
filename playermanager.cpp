@@ -15,15 +15,20 @@ PlayerManager& PlayerManager::getManager() {
     return manager;
 }
 
+void PlayerManager::write(QDataStream &stream)
+{
+    stream<<Player::globalRecord;
+    foreach(Player player, players.values()) {
+        stream<<player.name<<player.homeMarket<<player.cash<<player.loan<<player.marketAgents<<player.record;
+    }
+}
+
 void PlayerManager::write(const QString &filename)
 {
     QFile file(filename);
     if(file.open(QFile::WriteOnly)) {
         QDataStream stream(&file);
-        stream<<Player::globalRecord;
-        foreach(Player player, players.values()) {
-            stream<<player.name<<player.homeMarket<<player.cash<<player.loan<<player.marketAgents<<player.record;
-        }
+        write(stream);
         file.close();
     }
 }
@@ -80,6 +85,7 @@ void PlayerManager::flush(const QString &filename)
             out<<key<<":"<<Player::globalRecord[key]<<"\r\n";
         }
         foreach(Player player, players.values()) {
+            qDebug("hi");
             out<<"\r\n"<<'['<<player.name<<" $"<<player.cash<<']'<<"\r\n";
             out<<"Home:"<<player.homeMarket<<"\r\n";
             out<<"Loan:"<<player.loan<<"\r\n";

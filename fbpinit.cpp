@@ -5,11 +5,10 @@
 
 int FBPInit::run()
 {
-    PlayerManager pm = PlayerManager::getManager();
-    Config config = Config::getConfig();
-    QStringList playerList = config.getPlayers();
+    PlayerManager& pm = PlayerManager::getManager();
+    Config& config = Config::getConfig();
     int playerIndex = -1;
-    foreach(QString playername, playerList)
+    foreach(QString playername, config.getPlayers())
     {
         playerIndex++;
         Player player;

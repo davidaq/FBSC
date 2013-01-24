@@ -57,8 +57,8 @@ inline int pair(int a, int b)
 
 int FBPSales::run()
 {
-    PlayerManager manager = PlayerManager::getManager();
-    Config config = Config::getConfig();
+    PlayerManager& manager = PlayerManager::getManager();
+    Config& config = Config::getConfig();
 
     int marketSize = (int)(config.get("Penetration").toDouble() * config.get("Market population").toInt());
     int addAgentCost = config.get("Adding agent cost").toInt();
@@ -73,23 +73,25 @@ int FBPSales::run()
         Player& player = manager.getPlayer(name);
         // Add / Remove agent
         int addCost = 0, removeCost = 0;
-        foreach(QString s, player.record["saleAgentAdded"].split(";;")) {
-            int marketid = s.toInt();
-            if(player.marketAgents.contains(marketid)) {
-                player.marketAgents[marketid] += 1;
-                addCost += addAgentCost;
+        if(!player.record["saleAgentAdded"].isEmpty())
+            foreach(QString s, player.record["saleAgentAdded"].split(";;")) {
+                int marketid = s.toInt();
+                if(player.marketAgents.contains(marketid)) {
+                    player.marketAgents[marketid] += 1;
+                    addCost += addAgentCost;
+                }
             }
-        }
-        foreach(QString s, player.record["saleAgentRemoved"].split(";;")) {
-            int marketid = s.toInt();
-            if(player.homeMarket == marketid && player.marketAgents[marketid] == 1) {
-                continue;
+        if(!player.record["saleAgentRemoved"].isEmpty())
+            foreach(QString s, player.record["saleAgentRemoved"].split(";;")) {
+                int marketid = s.toInt();
+                if(player.homeMarket == marketid && player.marketAgents[marketid] == 1) {
+                    continue;
+                }
+                if(player.marketAgents.contains(marketid)) {
+                    player.marketAgents[marketid] -= 1;
+                    removeCost += removeAgentCost;
+                }
             }
-            if(player.marketAgents.contains(marketid)) {
-                player.marketAgents[marketid] -= 1;
-                removeCost += removeAgentCost;
-            }
-        }
         player.record["saleAgentsCost"] = QString::number(addCost + removeCost);
         player.cash -= addCost + removeCost;
         int totalAgent = 0;

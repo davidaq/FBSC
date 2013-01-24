@@ -4,8 +4,8 @@
 
 int FBPProduce::run()
 {
-    PlayerManager manager = PlayerManager::getManager();
-    Config config = Config::getConfig();
+    PlayerManager& manager = PlayerManager::getManager();
+    Config& config = Config::getConfig();
     int workersPerTeam = config.get("Workers in a component").toInt();
     int engineersPerTeam = config.get("Engineers in a product").toInt();
     int comMatCost = config.get("Material cost per component").toInt();

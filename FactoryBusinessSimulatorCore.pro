@@ -36,9 +36,9 @@ HEADERS += \
     fbpsales.h \
     fbphire.h \
     fbpend.h \
-    fbpbonus.h
-
+    fbpbonus.h \
+    test.h
 
 OTHER_FILES += \
-    conf.d
+    dec.ref
 

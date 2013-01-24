@@ -9,6 +9,7 @@ class PlayerManager
 public:
     static PlayerManager& getManager();
     void flush(const QString& filename);
+    void write(QDataStream &stream);
     void write(const QString& filename);
     void read(QDataStream& stream);
     void read(const QString& filename);

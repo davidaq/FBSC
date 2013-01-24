@@ -12,6 +12,7 @@ public:
     static void test();
     void read(QDataStream& in);
     void read(QString filename);
+    void write(QDataStream& out);
     void write(QString filename);
     void set(QString key, QString value);
     void genDefault();
