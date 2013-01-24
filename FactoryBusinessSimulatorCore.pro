@@ -39,5 +39,6 @@ HEADERS += \
     fbpbonus.h
 
 
-OTHER_FILES +=
+OTHER_FILES += \
+    conf.d
 

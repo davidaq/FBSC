@@ -5,6 +5,8 @@
 #include "fbpproduce.h"
 #include "fbpsales.h"
 #include "fbphire.h"
+#include "fbpbonus.h"
+#include "fbpend.h"
 #include "FBProcess.h"
 #include "config.h"
 #include "playermanager.h"
@@ -23,6 +25,8 @@ int main(int argc, char *argv[])
     REGISTER("hire", FBPHire);
     REGISTER("produce", FBPProduce);
     REGISTER("sales", FBPSales);
+    REGISTER("end", FBPEnd);
+    REGISTER("bonus", FBPBonus);
 
     // End of register block
 
