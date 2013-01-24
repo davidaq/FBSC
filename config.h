@@ -13,6 +13,7 @@ public:
     void read(QString filename);
     void write(QString filename);
     void set(QString key, QString value);
+    void genDefault();
     QString get(QString key);
     QString getMarket(int index);
     QStringList getPlayers();

@@ -35,5 +35,6 @@ HEADERS += \
     fbphire.h
 
 
-OTHER_FILES +=
+OTHER_FILES += \
+    conf.d
 

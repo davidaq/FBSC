@@ -25,7 +25,6 @@ int main(int argc, char *argv[])
     REGISTER("sales", FBPSales);
 
     // End of register block
-
     Config::getConfig().read("conf.d");
     PlayerManager::getManager().read("conf.d");
 
