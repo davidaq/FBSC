@@ -10,6 +10,7 @@ class Config
 public:
     static Config& getConfig();
     static void test();
+    void read(QDataStream& in);
     void read(QString filename);
     void write(QString filename);
     void set(QString key, QString value);

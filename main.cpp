@@ -26,8 +26,17 @@ int main(int argc, char *argv[])
 
     // End of register block
 
-    Config::getConfig().read("conf.d");
-    PlayerManager::getManager().read("conf.d");
+    QFile file("conf.d");
+    if(file.open(QFile::ReadOnly)) {
+        QDataStream stream(&file);
+        if(!file.atEnd()) {
+            Config::getConfig().read(stream);
+        }
+        if(!file.atEnd()) {
+            PlayerManager::getManager().read(stream);
+        }
+        file.close();
+    }
 
     int run(QString procName, const QList<NamedProcess> & processes);
     for(int i = 1; i < argc; i++) {
@@ -51,6 +60,8 @@ int run(QString procName, const QList<NamedProcess> & processes) {
         qDebug()<<"Process [" + procName + "] doesn't exist";
         return 1;
     } else {
-        return proc->run();
+        int ret = proc->run();
+        PlayerManager::getManager().flush(procName + ".stat");
+        return ret;
     }
 }

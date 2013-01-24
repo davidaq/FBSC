@@ -18,14 +18,19 @@ Config &Config::getConfig()
     return config;
 }
 
+void Config::read(QDataStream& in)
+{
+    in >> hash;
+    markets.clear();
+}
+
 void Config::read(QString filename)
 {
     QFile file(filename);
     file.open(QIODevice::ReadOnly);
     QDataStream in(&file);
-    in >> hash;
+    read(in);
     file.close();
-    markets.clear();
 }
 
 void Config::write(QString filename)

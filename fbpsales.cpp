@@ -65,7 +65,6 @@ int FBPSales::run()
     int removeAgentCost = config.get("Removing agent cost").toInt();
 
     QHash<int, MarketStatus> marketStatus;
-    QHash<int, float> marketShare;
     QHash<int, PlayerFactor> factors;
 
     int playerIndex = -1;
@@ -74,21 +73,24 @@ int FBPSales::run()
         Player& player = manager.getPlayer(name);
         // Add / Remove agent
         int addCost = 0, removeCost = 0;
-        foreach(QString s, player.record["saleAgentAdded"].split(',')) {
+        foreach(QString s, player.record["saleAgentAdded"].split(";;")) {
             int marketid = s.toInt();
             if(player.marketAgents.contains(marketid)) {
                 player.marketAgents[marketid] += 1;
                 addCost += addAgentCost;
             }
         }
-        foreach(QString s, player.record["saleAgentRemoved"].split(',')) {
+        foreach(QString s, player.record["saleAgentRemoved"].split(";;")) {
             int marketid = s.toInt();
+            if(player.homeMarket == marketid && player.marketAgents[marketid] == 1) {
+                continue;
+            }
             if(player.marketAgents.contains(marketid)) {
                 player.marketAgents[marketid] -= 1;
                 removeCost += removeAgentCost;
             }
         }
-        player.record["saleAgentsCost"] = addCost + removeCost;
+        player.record["saleAgentsCost"] = QString::number(addCost + removeCost);
         player.cash -= addCost + removeCost;
         int totalAgent = 0;
         foreach(int k, player.marketAgents.keys()) {
@@ -144,20 +146,20 @@ int FBPSales::run()
                 float factor = totalFactors[key];
                 marketStatus[k].normalize(factor);
                 totalFactors[key] = factor;
-                player.record["marketShare_"+k] = factor;
+                player.record["marketShare_"+k] = QString::number(factor);
                 int order = factor * marketSize;
-                player.record["marketOrder_"+k] = order;
+                player.record["marketOrder_"+k] = QString::number(order);
                 totalOrder += order;
             }
-            player.record["totalReceivedOrders"] = totalOrder;
-            int stored = player.record["productsStored"].toInt();;
+            player.record["totalReceivedOrders"] = QString::number(totalOrder);
+            int stored = player.record["productsStored"].toInt();
             int satisfied = (stored > totalOrder) ? totalOrder : stored;
-            player.record["totalSatisfiedOrders"] = satisfied;
-            player.record["totalUnsatisfiedOrders"] = (satisfied < totalOrder) ? (totalOrder - satisfied) : 0;
-            player.record["productsStored"] = stored - satisfied;
+            player.record["totalSatisfiedOrders"] = QString::number(satisfied);
+            player.record["totalUnsatisfiedOrders"] = QString::number((satisfied < totalOrder) ? (totalOrder - satisfied) : 0);
+            player.record["productsStored"] = QString::number(stored - satisfied);
             int profit = satisfied * price;
             player.cash += profit;
-            player.record["salesProfit"] = profit;
+            player.record["salesProfit"] = QString::number(profit);
         }
     }
     return 0;

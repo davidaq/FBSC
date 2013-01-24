@@ -8,12 +8,16 @@ int FBPInit::run()
     PlayerManager pm = PlayerManager::getManager();
     Config config = Config::getConfig();
     QStringList playerList = config.getPlayers();
+    int playerIndex = -1;
     foreach(QString playername, playerList)
     {
+        playerIndex++;
         Player player;
         player.name = playername;
         player.loan = 0;
         player.cash = config.get("Initial cash").toInt();
+        player.homeMarket = playerIndex;
+        player.marketAgents[playerIndex] = 1;
 
         pm.addPlayer(player);
     }

@@ -23,14 +23,14 @@ int FBPProduce::run()
         int engineers = player.record["engineersHired"].toInt();
         int wp = workers / workersPerTeam;
         int ep = engineers / engineersPerTeam;
-        player.record["workersWorking"] = wp * workersPerTeam;
-        player.record["workersIdle"] = workers - wp * workersPerTeam;
-        player.record["engineersWorking"] = ep * engineersPerTeam;
-        player.record["engineersIdle"] = workers - ep * engineersPerTeam;
+        player.record["workersWorking"] = QString::number(wp * workersPerTeam);
+        player.record["workersIdle"] = QString::number(workers - wp * workersPerTeam);
+        player.record["engineersWorking"] = QString::number(ep * engineersPerTeam);
+        player.record["engineersIdle"] = QString::number(workers - ep * engineersPerTeam);
         int components = wp * (hours / hoursInComp);
-        player.record["componentsProduced"] = components;
+        player.record["componentsProduced"] = QString::number(components);
         int componentCost = components * comMatCost;
-        player.record["componentsMaterialCost"] = componentCost;
+        player.record["componentsMaterialCost"] = QString::number(componentCost);
         components += player.record["componentsStored"].toInt();
         int prdComCap = ep * (hours / hoursInProd);
         int prdMatCap = components / comPerPrd;
@@ -38,15 +38,18 @@ int FBPProduce::run()
         int products = (prdComCap > prdMatCap)?prdMatCap:prdComCap;
         products = (products > order)?order:products;
         components -= products * comPerPrd;
-        player.record["componentsUsed"] = products * comPerPrd;
-        player.record["componentsStored"] = components;
-        player.record["componentsTotalCost"] = componentCost + components * comStrCost;
-        player.record["productsProduced"] = products;
-        player.record["productsStored"] = products + player.record["productsStored"].toInt();
-        player.record["productsMaterialCost"] = products * prdMatCost;
-        int qc = player.record["qualityCost"].toInt();
-        player.cash -= qc + componentCost + components * comStrCost + products * prdMatCost;
-        player.record["qualityCostPerProduct"] = qc / order;
+        player.record["componentsUsed"] = QString::number(products * comPerPrd);
+        player.record["componentsStored"] = QString::number(components);
+        int compStorageCost = components * comStrCost;
+        player.record["componentsStorageTotalCost"] = QString::number(compStorageCost);
+        player.record["componentsTotalCost"] = QString::number(componentCost + compStorageCost);
+        player.record["productsProduced"] = QString::number(products);
+        player.record["productsStored"] = QString::number(products + player.record["productsStored"].toInt());
+        int prodMatCost = products * prdMatCost;
+        player.record["productsMaterialCost"] = QString::number(prodMatCost);
+        int qCost = player.record["qualityCost"].toInt();
+        player.cash -= qCost + componentCost + compStorageCost + prodMatCost;
+        player.record["qualityCostPerProduct"] = QString::number(qCost / order);
     }
     return 0;
 }

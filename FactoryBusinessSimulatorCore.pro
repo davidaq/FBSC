@@ -20,7 +20,9 @@ SOURCES += main.cpp \
     fbpinit.cpp \
     fbpproduce.cpp \
     fbpsales.cpp \
-    fbphire.cpp
+    fbphire.cpp \
+    fbpend.cpp \
+    fbpbonus.cpp
 
 
 HEADERS += \
@@ -32,7 +34,9 @@ HEADERS += \
     fbpinit.h \
     fbpproduce.h \
     fbpsales.h \
-    fbphire.h
+    fbphire.h \
+    fbpend.h \
+    fbpbonus.h
 
 
 OTHER_FILES +=

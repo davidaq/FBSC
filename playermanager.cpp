@@ -1,6 +1,7 @@
 #include "playermanager.h"
 #include <QFile>
 #include <QDataStream>
+#include <QTextStream>
 
 QHash<QString, QString> Player::globalRecord;
 
@@ -30,16 +31,21 @@ void PlayerManager::write(const QString &filename)
 void PlayerManager::read(const QString &filename)
 {
     QFile file(filename);
-    players.clear();
     if(file.open(QFile::ReadOnly)) {
         QDataStream stream(&file);
-        stream>>Player::globalRecord;
-        while(!stream.atEnd()) {
-            Player player;
-            stream>>player.name>>player.homeMarket>>player.cash>>player.loan>>player.marketAgents>>player.record;
-            addPlayer(player);
-        }
+        read(stream);
         file.close();
+    }
+}
+
+void PlayerManager::read(QDataStream& stream)
+{
+    players.clear();
+    stream>>Player::globalRecord;
+    while(!stream.atEnd()) {
+        Player player;
+        stream>>player.name>>player.homeMarket>>player.cash>>player.loan>>player.marketAgents>>player.record;
+        addPlayer(player);
     }
 }
 
@@ -63,4 +69,28 @@ Player& PlayerManager::getPlayer(QString name) {
 
 Player& PlayerManager::operator [](QString name) {
     return getPlayer(name);
+}
+
+void PlayerManager::flush(const QString &filename)
+{
+    QFile file(filename);
+    if(file.open(QFile::WriteOnly)) {
+        QTextStream out(&file);
+        foreach(QString key, Player::globalRecord.keys()) {
+            out<<key<<":"<<Player::globalRecord[key]<<"\r\n";
+        }
+        foreach(Player player, players.values()) {
+            out<<"\r\n"<<'['<<player.name<<" $"<<player.cash<<']'<<"\r\n";
+            out<<"Home:"<<player.homeMarket<<"\r\n";
+            out<<"Loan:"<<player.loan<<"\r\n";
+            out<<"MarketAgents:"<<player.loan<<"\r\n";
+            foreach(int marketId, player.marketAgents.keys()) {
+                out<<marketId<<':'<<player.marketAgents[marketId]<<"\r\n";
+            }
+            foreach(QString key, player.record.keys()) {
+                out<<key<<":"<<player.record[key]<<"\r\n";
+            }
+        }
+    }
+    file.close();
 }
