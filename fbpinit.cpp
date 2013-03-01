@@ -14,11 +14,12 @@ int FBPInit::run()
         Player player;
         player.name = playername;
         player.loan = 0;
-        player.cash = config.get("Initial cash").toInt();
+        player.cash = config.get("Initial cash").toLongLong();
         player.homeMarket = playerIndex;
         player.marketAgents[playerIndex] = 1;
 
         pm.addPlayer(player);
     }
+    Player::globalRecord["round"] = "0";
     return 0;
 }

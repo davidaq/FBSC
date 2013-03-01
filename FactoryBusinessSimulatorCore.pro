@@ -6,8 +6,6 @@
 
 QT       += core
 
-QT       -= gui
-
 TARGET = FactoryBusinessSimulatorCore
 CONFIG   += console
 CONFIG   -= app_bundle
@@ -22,7 +20,9 @@ SOURCES += main.cpp \
     fbpsales.cpp \
     fbphire.cpp \
     fbpend.cpp \
-    fbpbonus.cpp
+    fbpbonus.cpp \
+    fbpreport.cpp \
+    fbpstartround.cpp
 
 
 HEADERS += \
@@ -37,8 +37,13 @@ HEADERS += \
     fbphire.h \
     fbpend.h \
     fbpbonus.h \
-    test.h
+    test.h \
+    fbpreport.h \
+    fbpstartround.h
 
 OTHER_FILES += \
     dec.ref
+
+RESOURCES += \
+    res.qrc
 

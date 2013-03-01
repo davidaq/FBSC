@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>template/footer.html</file>
+        <file>template/player.html</file>
+        <file>template/market.html</file>
+        <file>template/header.html</file>
+    </qresource>
+</RCC>

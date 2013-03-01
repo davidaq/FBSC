@@ -57,6 +57,11 @@ QString Config::get(QString key)
     return hash[key];
 }
 
+bool Config::has(QString key)
+{
+    return hash.contains(key);
+}
+
 void Config::test()
 {
     Config conf = Config::getConfig();
@@ -68,10 +73,20 @@ void Config::test()
 }
 
 QString Config::getMarket(int index) {
+    if(index >= 0 && index < marketsCount())
+        return markets[index];
+    return "Market" + QString::number(index);
+}
+
+int Config::marketsCount() {
     if(markets.isEmpty()) {
         markets = get("markets").split(";;");
+        int i = 0;
+        foreach(QString name, markets) {
+            hash["marketName_" + QString::number(i++)] = name;
+        }
     }
-    return markets[index];
+    return markets.size();
 }
 
 QStringList Config::getPlayers() {
@@ -81,12 +96,14 @@ QStringList Config::getPlayers() {
 void Config::genDefault()
 {
     hash["players"] = "p1;;p2";
+    hash["markets"] = "Hangzhou;;Wuhan";
+    hash["Set of markets"] = "Hangzhou;;Wuhan;;Nanjing;;Shenyang;;Chengdu;;Xi'an";
     hash["Month in a quarter"] = QString::number(3);
     hash["Days in a month"] = QString::number(30);
     hash["Working hours in a month"] = QString::number(168);
-    hash["Set of markets"] = "Hangzhou;;Wuhan;;Nanjing;;Shenyang;;Chengdu;;Xi'an";
     hash["Hours in a component"] = QString::number(4);
     hash["Workers in a component"] = QString::number(1);
+    hash["Hours in a product"] = QString::number(1);
     hash["Engineers in a product"] = QString::number(4);
     hash["Hours for a team in a product"] = QString::number(4);
     hash["Components in a product"] = QString::number(4);

@@ -23,33 +23,33 @@ void genDec()
     PlayerManager& manager = PlayerManager::getManager();
 	do {
         Player& p = manager.getPlayer("p1");
-        p.record["workersOrdered"] = QString::number(5);
+        p.record["workersOrdered"] = QString::number(50);
         p.record["workersSalary"] = QString::number(100);
-        p.record["engineersOrdered"] = QString::number(4);
-        p.record["engineersSalary"] = QString::number(20);
-        p.record["productsOrdered"] = QString::number(500);
+        p.record["engineersOrdered"] = QString::number(100);
+        p.record["engineersSalary"] = QString::number(300);
+        p.record["productsOrdered"] = QString::number(20000);
         p.record["qualityCost"] = QString::number(500);
-        p.record["price"] = QString::number(20);
-        p.record["salesBudget"] = QString::number(2);
+        p.record["price"] = QString::number(10000);
+        p.record["salesSupport"] = QString::number(2);
         p.record["saleAgentAdded"] = "1;;0";
         p.record["saleAgentRemoved"] = "";
-        p.record["marketsOrderedReport"] = QString::number(0);
-        p.record["hireConsultant"] = QString::number(0);
+        p.record["marketsOrderedReport"] = "1;;0";
+        p.record["hireConsultant"] = QString::number(1);
         p.record["loan"] = QString::number(100);
 	} while (false);
 	do {
         Player& p = manager.getPlayer("p2");
-        p.record["workersOrdered"] = QString::number(7);
-        p.record["workersSalary"] = QString::number(800);
-        p.record["engineersOrdered"] = QString::number(10);
+        p.record["workersOrdered"] = QString::number(70);
+        p.record["workersSalary"] = QString::number(200);
+        p.record["engineersOrdered"] = QString::number(100);
         p.record["engineersSalary"] = QString::number(900);
-        p.record["productsOrdered"] = QString::number(100);
+        p.record["productsOrdered"] = QString::number(30000);
         p.record["qualityCost"] = QString::number(300);
-        p.record["price"] = QString::number(20);
-        p.record["salesBudget"] = QString::number(999);
+        p.record["price"] = QString::number(12000);
+        p.record["salesSupport"] = QString::number(999);
         p.record["saleAgentAdded"] = "";
         p.record["saleAgentRemoved"] = "";
-        p.record["marketsOrderedReport"] = QString::number(0);
+        p.record["marketsOrderedReport"] = "0";
         p.record["hireConsultant"] = QString::number(0);
         p.record["loan"] = QString::number(0);
 	} while (false);
@@ -60,7 +60,6 @@ void genDec()
         manager.write(stream);
         file.close();
     }
-
 }
 
 #endif // TEST_H

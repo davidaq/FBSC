@@ -4,6 +4,7 @@
 #include <QHash>
 #include <QString>
 #include <QStringList>
+#include <QDebug>
 
 class Config
 {
@@ -17,7 +18,9 @@ public:
     void set(QString key, QString value);
     void genDefault();
     QString get(QString key);
+    bool has(QString key);
     QString getMarket(int index);
+    int marketsCount();
     QStringList getPlayers();
 private:
     QStringList markets;

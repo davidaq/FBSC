@@ -8,57 +8,57 @@ int FBPHire::run()
     Config& config = Config::getConfig();
     QStringList playerList = config.getPlayers();
 
-    int workersAverageSalary = 0;
+    qint64 workersAverageSalary = 0, count = 0;
     foreach(QString playername, playerList)
     {
         Player& player = pm[playername];
-        int workersOrdered = player.record["workersOrdered"].toInt();
-        int workersSalary = player.record["workersSalary"].toInt() * 3;
+        qint64 workersOrdered = player.record["workersOrdered"].toLongLong();
+        qint64 workersSalary = player.record["workersSalary"].toLongLong() * 3;
         player.record["workersTotalCost"] = QString::number(workersOrdered * workersSalary);
         player.cash -= workersOrdered * workersSalary;
-        workersAverageSalary += workersSalary;
+        count += workersOrdered;
+        if(count > 0)
+            workersAverageSalary += (workersSalary - workersAverageSalary) * workersOrdered / count;
     }
-    workersAverageSalary /= playerList.size();
     Player::globalRecord["workersAverageSalary"] = QString::number(workersAverageSalary);
 
     foreach(QString playername, playerList)
     {
         Player& player = pm[playername];
-        int workersOrdered = player.record["workersOrdered"].toInt();
-        int workersSalary = player.record["workersSalary"].toInt() * 3;
+        qint64 workersOrdered = player.record["workersOrdered"].toLongLong();
+        qint64 workersSalary = player.record["workersSalary"].toLongLong() * 3;
         double m = static_cast<double>(workersAverageSalary);
 #define sq(x) (x)*(x)
-        int workersHired = workersAverageSalary == 0 ? 0 : (workersSalary >= workersAverageSalary ?
-                    workersOrdered :  ((int) (workersOrdered * (1.0 / (sq(m)) * (double)sq(workersSalary)
+        qint64 workersHired = workersAverageSalary == 0 ? 0 : (workersSalary >= workersAverageSalary ?
+                    workersOrdered :  ((qint64) (workersOrdered * (1.0 / (sq(m)) * sq(workersSalary)
                                            - 2.0 / m * workersSalary + 1.0))));
-#undef sq
         player.record["workersHired"] = QString::number(workersHired);
         player.record["workersLeft"] = QString::number(workersOrdered - workersHired);
         player.record["workersAvailable"] = QString::number(workersHired);
     }
 
-    int engineersAverageSalary = 0;
+    qint64 engineersAverageSalary = 0; count = 0;
     foreach(QString playername, playerList)
     {
         Player& player = pm[playername];
-        int engineersOrdered = player.record["engineersOrdered"].toInt();
-        int engineersSalary = player.record["engineersSalary"].toInt() * 3;
+        qint64 engineersOrdered = player.record["engineersOrdered"].toLongLong();
+        qint64 engineersSalary = player.record["engineersSalary"].toLongLong() * 3;
         player.record["engineersTotalCost"] = QString::number(engineersOrdered * engineersSalary);
         player.cash -= engineersOrdered * engineersSalary;
-        engineersAverageSalary += engineersSalary;
+        count += engineersOrdered;
+        if(count > 0)
+            engineersAverageSalary += (engineersSalary - engineersAverageSalary) * engineersOrdered / count;
     }
-    engineersAverageSalary /= playerList.size();
-    Player::globalRecord["engineersAverageSalary"] = engineersAverageSalary;
+    Player::globalRecord["engineersAverageSalary"] = QString::number(engineersAverageSalary);
 
     foreach(QString playername, playerList)
     {
         Player& player = pm[playername];
-        int engineersOrdered = player.record["engineersOrdered"].toInt();
-        int engineersSalary = player.record["engineersSalary"].toInt() * 3;
+        qint64 engineersOrdered = player.record["engineersOrdered"].toLongLong();
+        qint64 engineersSalary = player.record["engineersSalary"].toLongLong() * 3;
         double m = static_cast<double>(engineersAverageSalary);
-#define sq(x) (x)*(x)
-        int engineersHired = engineersAverageSalary == 0 ? 0 : (engineersSalary >= engineersAverageSalary ?
-                    engineersOrdered :  ((int) (engineersOrdered * (1.0 / (sq(m)) * (double)sq(engineersSalary)
+        qint64 engineersHired = engineersAverageSalary == 0 ? 0 : (engineersSalary >= engineersAverageSalary ?
+                    engineersOrdered :  ((qint64) (engineersOrdered * (1.0 / (sq(m)) * (double)sq(engineersSalary)
                                            - 2.0 / m * engineersSalary + 1.0))));
 #undef sq
         player.record["engineersHired"] = QString::number(engineersHired);

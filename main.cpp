@@ -7,14 +7,17 @@
 #include "fbphire.h"
 #include "fbpbonus.h"
 #include "fbpend.h"
+#include "fbpreport.h"
+#include "fbpstartround.h"
 #include "FBProcess.h"
 #include "config.h"
 #include "playermanager.h"
-#include "test.h"
+#include <QApplication>
 
 //#define TEST
 #ifdef TEST
 
+#include "test.h"
 int main()
 {
     genDefaultConfig();
@@ -28,17 +31,20 @@ typedef QPair<QString, FBProcess*> NamedProcess;
 
 int main(int argc, char *argv[])
 {
+    QApplication app(argc, argv);
     QList<NamedProcess> processes;
 #define REGISTER(NAME, OBJ) processes.append(qMakePair(QString(NAME), (FBProcess*) (new OBJ)))
 
     // Register processes here
-    REGISTER("init", FBPLoan);
+    REGISTER("init", FBPInit);
+    REGISTER("start", FBPStartRound);
     REGISTER("loan", FBPLoan);
     REGISTER("hire", FBPHire);
     REGISTER("produce", FBPProduce);
     REGISTER("sales", FBPSales);
     REGISTER("end", FBPEnd);
     REGISTER("bonus", FBPBonus);
+    REGISTER("report", FBPReport);
 
     // End of register block
 
@@ -59,8 +65,10 @@ int main(int argc, char *argv[])
     int run(QString procName, const QList<NamedProcess> & processes);
     for(int i = 1; i < argc; i++) {
         int r = run(argv[i], processes);
-        if(r != 0)
+        if(r != 0) {
+            qDebug()<<"error";
             return r;
+        }
     }
 
     QFile file("conf.d");
@@ -85,6 +93,7 @@ int run(QString procName, const QList<NamedProcess> & processes) {
         return 1;
     } else {
         int ret = proc->run();
+        qDebug()<<procName;
         PlayerManager::getManager().flush(procName + ".stat");
         return ret;
     }

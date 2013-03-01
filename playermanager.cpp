@@ -72,6 +72,10 @@ Player& PlayerManager::getPlayer(QString name) {
     return dummy;
 }
 
+int PlayerManager::playerCount() const {
+    return players.size();
+}
+
 Player& PlayerManager::operator [](QString name) {
     return getPlayer(name);
 }
@@ -85,13 +89,12 @@ void PlayerManager::flush(const QString &filename)
             out<<key<<":"<<Player::globalRecord[key]<<"\r\n";
         }
         foreach(Player player, players.values()) {
-            qDebug("hi");
             out<<"\r\n"<<'['<<player.name<<" $"<<player.cash<<']'<<"\r\n";
             out<<"Home:"<<player.homeMarket<<"\r\n";
             out<<"Loan:"<<player.loan<<"\r\n";
-            out<<"MarketAgents:"<<player.loan<<"\r\n";
+            out<<"MarketAgents:"<<"\r\n";
             foreach(int marketId, player.marketAgents.keys()) {
-                out<<marketId<<':'<<player.marketAgents[marketId]<<"\r\n";
+                out<<'\t'<<marketId<<':'<<player.marketAgents[marketId]<<"\r\n";
             }
             foreach(QString key, player.record.keys()) {
                 out<<key<<":"<<player.record[key]<<"\r\n";

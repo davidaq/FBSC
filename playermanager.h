@@ -16,6 +16,7 @@ public:
     void addPlayer(const Player& player);
     void removePlayer(QString name);
     Player& getPlayer(QString name);
+    int playerCount() const;
     Player& operator [](QString name);
 private:
     PlayerManager();

@@ -8,8 +8,8 @@ class Player
 {
 public:
     QString name;
-    int cash;
-    int loan;
+    qint64 cash;
+    qint64 loan;
     int homeMarket;
     QHash<int, int> marketAgents;
     QHash<QString, QString> record;
