@@ -35,8 +35,8 @@ int FBPProduce::run()
         qint64 prdComCap = ep * (hours / hoursInProd);
         qint64 prdMatCap = components / comPerPrd;
         qint64 order = player.record["productsOrdered"].toLongLong();
-        qint64 products = (prdComCap > prdMatCap)?prdMatCap:prdComCap;
-        products = (products > order)?order:products;
+        qint64 products = (prdComCap > prdMatCap) ? prdMatCap : prdComCap;
+        products = (products > order) ? order : products;
         components -= products * comPerPrd;
         player.record["componentsUsed"] = QString::number(products * comPerPrd);
         player.record["componentsStored"] = QString::number(components);
@@ -49,7 +49,7 @@ int FBPProduce::run()
         player.record["productsMaterialCost"] = QString::number(prodMatCost);
         qint64 qCost = player.record["qualityCost"].toLongLong();
         player.cash -= qCost + componentCost + compStorageCost + prodMatCost;
-        player.record["qualityCostPerProduct"] = QString::number((float) qCost / order);
+        player.record["qualityCostPerProduct"] = QString::number(order > 0 ? (float) qCost / order : 0);
     }
     return 0;
 }

@@ -48,8 +48,16 @@ int main(int argc, char *argv[])
 
     // End of register block
 
+    QString confFile = "conf.d";
+
+    if(argv[1][0] == ':')
+    {
+        confFile = argv[1];
+        confFile.remove(0, 1);
+    }
+    qDebug() << confFile;
     do {
-        QFile file("conf.d");
+        QFile file(confFile);
         if(file.open(QFile::ReadOnly)) {
             QDataStream stream(&file);
             if(!file.atEnd()) {
@@ -64,14 +72,17 @@ int main(int argc, char *argv[])
 
     int run(QString procName, const QList<NamedProcess> & processes);
     for(int i = 1; i < argc; i++) {
-        int r = run(argv[i], processes);
-        if(r != 0) {
-            qDebug()<<"error";
-            return r;
+        if(i > 1 || argv[i][0] != ':')
+        {
+            int r = run(argv[i], processes);
+            if(r != 0) {
+                qDebug()<<"error";
+                return r;
+            }
         }
     }
 
-    QFile file("conf.d");
+    QFile file(confFile);
     if(file.open(QFile::WriteOnly)) {
         QDataStream stream(&file);
         Config::getConfig().write(stream);
