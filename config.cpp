@@ -105,7 +105,7 @@ void Config::genDefault()
     hash["Workers in a component"] = QString::number(1);
     hash["Hours in a product"] = QString::number(1);
     hash["Engineers in a product"] = QString::number(4);
-    hash["Hours for a team in a product"] = QString::number(4);
+    hash["Hours in a product"] = QString::number(4);
     hash["Components in a product"] = QString::number(4);
     hash["Material cost per component"] = QString::number(200);
     hash["Material cost per product"] = QString::number(100);
