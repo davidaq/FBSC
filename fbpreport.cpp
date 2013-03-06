@@ -3,9 +3,19 @@
 #include "playermanager.h"
 #include "config.h"
 #include <QFile>
+#include <QDir>
 
 int FBPReport::run()
 {
+    // clean HTMLs
+    QDir dir;
+    foreach(QString file, dir.entryList())
+    {
+        if(file.endsWith(".html"))
+            dir.remove(file);
+    }
+
+    // start the report process
     PlayerManager& manager = PlayerManager::getManager();
     Config& config = Config::getConfig();
 
