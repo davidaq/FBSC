@@ -24,7 +24,10 @@ public:
         _total += factor;
     }
     void normalize(float & factor) {
-        factor /= _total;
+        if(_total != 0)
+            factor /= _total;
+        else
+            factor = 0;
     }
     void apply(const PlayerFactor & factor) {
         _apply(factor.price, _minPriceFac, _maxPriceFac);
@@ -46,7 +49,10 @@ private:
         }
     }
     static void _normalize(float& val, const float&  min, const float&  max) {
-        val =  (val - min) / (max - min);
+        if(max != min)
+            val =  (val - min) / (max - min);
+        else
+            val = 0;
     }
 };
 
@@ -124,7 +130,7 @@ int FBPSales::run()
         qint64 salesSupport = player.record["salesSupport"].toLongLong();
         player.record["salesCost"] = QString::number(addCost + removeCost + salesSupport);
         player.cash -= addCost + removeCost + salesSupport;
-        float singlePower = (float) salesSupport / totalAgent;
+        float singlePower = (totalAgent > 0) ? (float) salesSupport / totalAgent : 0;
         player.record["salesSupportPerAgent"] = QString::number(singlePower);
         factor.price = -player.record["price"].toLongLong();
         factor.quality = player.record["qualityCostPerProduct"].toFloat();
