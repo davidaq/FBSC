@@ -179,7 +179,7 @@ int FBPReport::run()
             }
         }
         report = headerTemplate + report + footerTemplate;
-        QFile fp("Report"+ name + ".html");
+        QFile fp(name + " of Round " + Player::globalRecord["round"] + ".html");
         if(fp.open(QFile::WriteOnly)) {
             fp.write(report.toUtf8());
             fp.close();
