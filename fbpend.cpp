@@ -31,12 +31,12 @@ int FBPEnd::run()
     Player::globalRecord["componentsUnitStorageCost"] = config.get("Component storage cost per quarter");
     Player::globalRecord["productsUnitStorageCost"] = config.get("Component storage cost per quarter");
     Player::globalRecord["marketSize"] = QString::number((qint64)(config.get("Penetration").toFloat() * config.get("Market population").toLongLong()));
-    int ranking = 1;
+    int ranking = config.getPlayers().size();
     foreach(QLinkedList<Player*> list, rank) {
         QString cRanking = QString::number(ranking);
         foreach(Player* player, list) {
             player->record["ranking"] = cRanking;
-            ranking++;
+            ranking--;
         }
     }
     return 0;
